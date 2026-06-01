@@ -1,0 +1,11 @@
+pyproject.toml
+src/paper_fetch/__init__.py
+src/paper_fetch/api.py
+src/paper_fetch/cli.py
+src/paper_fetch/dates.py
+src/paper_fetch/formats.py
+src/paper_fetch/models.py
+src/paper_fetch.egg-info/PKG-INFO
+src/paper_fetch.egg-info/SOURCES.txt
+src/paper_fetch.egg-info/dependency_links.txt
+src/paper_fetch.egg-info/top_level.txt
