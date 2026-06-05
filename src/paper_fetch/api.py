@@ -21,7 +21,11 @@ def search_papers(
         sort_by=arxiv.SortCriterion.SubmittedDate,
     )
 
-    client = arxiv.Client()
+    client = arxiv.Client( 
+        page_size=5,
+        delay_seconds=5.0,
+        num_retries=1,
+        )
 
     papers = []
 
