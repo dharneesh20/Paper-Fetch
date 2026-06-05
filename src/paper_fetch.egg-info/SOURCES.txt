@@ -1,3 +1,5 @@
+LICENSE
+README.md
 pyproject.toml
 src/paper_fetch/__init__.py
 src/paper_fetch/api.py
@@ -8,4 +10,6 @@ src/paper_fetch/models.py
 src/paper_fetch.egg-info/PKG-INFO
 src/paper_fetch.egg-info/SOURCES.txt
 src/paper_fetch.egg-info/dependency_links.txt
+src/paper_fetch.egg-info/entry_points.txt
+src/paper_fetch.egg-info/requires.txt
 src/paper_fetch.egg-info/top_level.txt

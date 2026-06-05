@@ -5,23 +5,13 @@ from paper_fetch.models import Paper
 
 
 def to_json(papers: list[Paper]) -> str:
-    """
-    Convert papers to JSON.
-    """
-
     return json.dumps(
         [asdict(paper) for paper in papers],
         indent=2
     )
 
-
 def to_markdown(papers: list[Paper]) -> str:
-    """
-    Convert papers to Markdown.
-    """
-
     lines = ["# Papers", ""]
-
     for paper in papers:
         lines.extend(
             [
@@ -36,12 +26,7 @@ def to_markdown(papers: list[Paper]) -> str:
 
     return "\n".join(lines)
 
-
 def to_table(papers: list[Paper]) -> str:
-    """
-    Convert papers to simple table format.
-    """
-
     if not papers:
         return "No papers found."
 

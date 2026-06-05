@@ -1,9 +1,9 @@
-import xml.etree.ElementTree as ET
 from datetime import datetime
-import httpx
+
+import arxiv
+
 from paper_fetch.models import Paper
 
-ARXIV_API_URL = "https://export.arxiv.org/api/query"
 
 def search_papers(
     query: str,
@@ -11,28 +11,54 @@ def search_papers(
     category: str | None = None,
     since_date: datetime | None = None,
 ) -> list[Paper]:
+    """
+    Search papers from arXiv.
+    """
 
-    params = {
-        "search_query": f"all:{query}",
-        "start": 0,
-        "max_results": limit,
-    }
+    search = arxiv.Search(
+        query=query,
+        max_results=limit,
+        sort_by=arxiv.SortCriterion.SubmittedDate,
+    )
+
+    client = arxiv.Client()
+
+    papers = []
 
     try:
-        response = httpx.get(
-            ARXIV_API_URL,
-            params=params,
-            timeout=15.0,
-        )
+        for result in client.results(search):
 
-        response.raise_for_status()
+            papers.append(
+                Paper(
+                    arxiv_id=result.entry_id.split("/")[-1],
+                    title=result.title,
+                    authors=[
+                        author.name
+                        for author in result.authors
+                    ],
+                    category=result.primary_category,
+                    published=result.published.strftime(
+                        "%Y-%m-%d"
+                    ),
+                    url=result.entry_id,
+                    abstract=result.summary,
+                )
+            )
 
-    except httpx.RequestError:
+    except Exception as e:
         raise RuntimeError(
-            "Cannot connect to arXiv."
-        )
+            f"""
+Unable to retrieve papers from arXiv.
 
-    papers = parse_arxiv_response(response.text)
+Possible reasons:
+- arXiv rate limit exceeded (429)
+- arXiv service unavailable (503)
+- Temporary network issue
+
+Original error:
+{e}
+"""
+        )
 
     if category:
         papers = [
