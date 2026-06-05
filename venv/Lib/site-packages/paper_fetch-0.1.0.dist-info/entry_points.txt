@@ -1,2 +1,0 @@
-[console_scripts]
-paper-fetch = paper_fetch.cli:app
