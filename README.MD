@@ -21,7 +21,7 @@ A command-line tool to search research papers from arXiv.
 Clone the repository:
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/dharneesh20/Paper-Fetch
 cd paper-fetch
 ```
 
